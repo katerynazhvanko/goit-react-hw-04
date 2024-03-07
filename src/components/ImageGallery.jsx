@@ -1,11 +1,13 @@
-export default function ImageGallery() {
+export default function ImageGallery({ images }) {
   return (
     <ul>
-      <li>
-        <div>
-          <img src="" alt="" />
-        </div>
-      </li>
+      {images.map((image) => (
+        <li key={image.id}>
+          <a href={image.urls.small}>
+            <img src={image.urls.small} alt={image.alt_description} />
+          </a>
+        </li>
+      ))}
     </ul>
   );
 }

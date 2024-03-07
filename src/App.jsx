@@ -1,25 +1,54 @@
-// import { useState } from 'react'
+import { useEffect, useState } from "react";
+import { fetchImages } from "./components/images-api";
 
-import SearchBar from "./components/SearchBar";
-import ImageGallery from "./components/ImageGallery";
-import ImageCard from "./components/ImageCard";
-import Loader from "./components/Loader";
+// import ImageCard from "./components/ImageCard";
+// import ErrorMessage from "./components/ErrorMessage";
+// import ImageModal from "./components/ImageModal";
+
 import LoadMoreBtn from "./components/LoadMoreBtn";
-import ErrorMessage from "./components/ErrorMessage";
-import ImageModal from "./components/ImageModal";
-
-import "./App.css";
+import ImageGallery from "./components/ImageGallery";
+import SearchBar from "./components/SearchBar/SearchBar";
+import Loader from "./components/Loader";
 
 export default function App() {
+  const [images, setImages] = useState([]);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  // get fetch
+  const handleSearch = async (newQuery) => {
+    console.log(newQuery);
+    try {
+      setIsLoading(true);
+      setError(false);
+      setImages([]);
+      const data = await fetchImages(newQuery, page);
+      setImages(data);
+      setIsLoading(false);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  //   useEffect(() => {
+
+  // })
+
   return (
     <>
-      <SearchBar />
-      <ImageGallery />
+      <SearchBar onSearch={handleSearch} />
+
+      {images.length > 0 && <ImageGallery images={images} />}
+      {isLoading && <Loader />}
+      {images.length > 0 && <LoadMoreBtn />}
+      {error && <p>Oops! Error! Reload!</p>}
+      {/* 
       <ImageCard />
-      <Loader />
-      <LoadMoreBtn />
       <ErrorMessage />
-      <ImageModal />
+      <ImageModal /> */}
     </>
   );
 }

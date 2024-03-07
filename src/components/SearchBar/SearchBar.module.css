@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 55px;
+  background-color: #000080;
+}
+.button {
+  background-color: transparent;
+  border: none;
+}
+.input {
+  width: 400px;
+  height: 43px;
+  border: none;
+  border-radius: 5px;
+}
