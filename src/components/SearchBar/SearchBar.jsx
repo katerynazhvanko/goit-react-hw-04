@@ -1,5 +1,6 @@
 import { Field, Formik, Form } from "formik";
 import { CiSearch } from "react-icons/ci";
+import toast, { Toaster } from "react-hot-toast";
 
 import css from "./SearchBar.module.css";
 
@@ -9,14 +10,18 @@ export default function SearchBar({ onSearch }) {
       <Formik
         initialValues={{ query: "" }}
         onSubmit={(values, actions) => {
+          if (values.query.trim() === "") {
+            return toast.error("Please, add valid text");
+          }
           onSearch(values.query);
           actions.resetForm();
         }}
       >
-        <Form>
+        <Form className={css.form}>
           <button type="submit" className={css.button}>
-            <CiSearch />
+            <CiSearch size="25" />
           </button>
+          <Toaster position="top-right" />
           <Field
             autoComplete="off"
             autoFocus

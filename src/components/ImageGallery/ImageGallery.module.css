@@ -1,0 +1,11 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  gap: 30px;
+}
+.item {
+  flex-basis: calc((100% - 60px) / 3);
+}
