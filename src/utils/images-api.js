@@ -8,7 +8,7 @@ export const fetchImages = async (searchQuery, page) => {
     params: {
       client_id: KEY,
       query: searchQuery,
-      per_page: 10,
+      per_page: 9,
       page,
     },
   });
